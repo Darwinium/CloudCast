@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
   Text,
-  View
+  View,
+  StatusBar,
 } from 'react-native';
 
 import MainStyles from '../styles/MainStyles';
@@ -17,6 +18,10 @@ class CastsList extends React.Component {
   render() {
     return (
       <View style={MainStyles.main_container}>
+        <StatusBar
+          backgroundColor="blue"
+          barStyle="light-content"
+        />
         <GridView />
         <View style={MainStyles.player} >
           <Player />
