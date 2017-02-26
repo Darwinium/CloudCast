@@ -3,7 +3,7 @@ import Settings from '../../Settings';
 export default {
   grid_container: {
     flex: 4,
-    backgroundColor: '#2B3A42',
+    backgroundColor: '#000000',
   },
   grid_list: {
     justifyContent: 'space-around',
@@ -17,9 +17,12 @@ export default {
     margin: 0,
     width: Settings.width/3,
     height: Settings.width/3,
-    backgroundColor: '#F6F6F6',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#CCC'
   },
+  loader: {
+    backgroundColor: '#141414',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 };
