@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import {constructUserFavoritesUrl} from '../../lib/soundcloud/Soundcloud';
+import {constructUserFavoritesUrl, constructUserSongsUrl} from '../../lib/soundcloud/Soundcloud';
 
 import Item from './Item';
 import GridViewStyles from './GridViewStyles';
@@ -25,7 +25,7 @@ class GridView extends React.Component {
   }
 
   componentDidMount() {
-    this.getchFavorites('darwintenk');
+    this.getchFavorites('lestam');
   }
   
 
