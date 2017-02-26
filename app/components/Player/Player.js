@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
   Text,
-  Image
+  Image,
+  View
 } from 'react-native';
 import WaveForm from 'react-native-audiowaveform';
 
@@ -30,22 +31,25 @@ class Player extends React.Component {
   
   render() {
     return (
-      <Image 
-        style={PlayerStyles.bg}
-        source={require('./images/player_bg.png')} >
-        <WaveForm style={PlayerStyles.player_container}  
-          onPress = {(sender) => this.playMedia() }
-          source={{uri:'https://github.com/juananime/react-native-audiowaveform/raw/master/Example/audio/intro.mp3'}}
-          waveFormStyle={{
-            waveColor: 'white', 
-            scrubColor: '#F2385A',
-            leftWaveColor:'lightsalmon', 
-            rightWaveColor:'lightsalmon'
-          }}
-          play={this.state.playAudio? true:false}
-        />
-      </Image>
+      <View />
     );
+    // return (
+    //   <Image 
+    //     style={PlayerStyles.bg}
+    //     source={require('./images/player_bg.png')} >
+    //     <WaveForm style={PlayerStyles.player_container}  
+    //       onPress = {(sender) => this.playMedia() }
+    //       source={{uri:'https://github.com/juananime/react-native-audiowaveform/raw/master/Example/audio/intro.mp3'}}
+    //       waveFormStyle={{
+    //         waveColor: 'white', 
+    //         scrubColor: '#F2385A',
+    //         leftWaveColor:'lightsalmon', 
+    //         rightWaveColor:'lightsalmon'
+    //       }}
+    //       play={this.state.playAudio? true:false}
+    //     />
+    //   </Image>
+    // );
   }
 }
 

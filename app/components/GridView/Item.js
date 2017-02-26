@@ -15,14 +15,23 @@ class Item extends React.Component {
   }
   
   render() {
-    let image = 'https://placehold.it/100x100/000000/ffffff?text=' + this.props.text
+    console.log(this.props.track);
+    console.log(this.props.track.artwork_url);
 
-    // let image = 'https://i1.sndcdn.com/artworks-000179680581-4imitm-t500x500.jpg'
+    let image_url;
+
+    // let image = 'https://placehold.it/100x100/000000/ffffff?text=' + this.props.track;
+
+    if(this.props.track.artwork_url) {
+      image_url = this.props.track.artwork_url.replace('large', 't500x500');
+    } else {
+      image_url = 'https://placehold.it/500x500/000000/F2385A?text=' + this.props.track.title;
+    }
 
     return (
       
         <Image style={GridViewStyles.grid_row}
-          source={{uri: image}}
+          source={{uri: image_url}}
         />
       
     );

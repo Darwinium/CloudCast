@@ -7,8 +7,9 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import Item from './Item';
+import {constructUserFavoritesUrl} from '../../lib/soundcloud/Soundcloud';
 
+import Item from './Item';
 import GridViewStyles from './GridViewStyles';
 
 class GridView extends React.Component {
@@ -21,6 +22,18 @@ class GridView extends React.Component {
         dataSource: this.ds.cloneWithRows(this.data),
         isLoading: true,
     }
+  }
+
+  componentDidMount() {
+    this.getchFavorites('darwintenk');
+  }
+  
+
+  getchFavorites(userId) {
+    fetch(constructUserFavoritesUrl(userId))
+      .then(response => response.json())
+      .then(json => this.setState({dataSource: this.ds.cloneWithRows(json), isLoading: false}) )
+      .catch(error => console.log(error))
   }
   
   render() {
@@ -40,7 +53,7 @@ class GridView extends React.Component {
             initialListSize={21}
             pageSize={2} // should be a multiple of the no. of visible cells per row
             scrollRenderAheadDistance={500}
-            renderRow={(rowData) => <Item text={rowData} /> }
+            renderRow={(rowData) => <Item track={rowData} /> }
           />
         </View>
       );
