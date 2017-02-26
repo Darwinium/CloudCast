@@ -9,7 +9,7 @@ export function constructUserProfilesUrl(userId) {
 }
 
 export function constructUserFavoritesUrl(userId) {
-    return `${Api.api_url}/users/${userId}/favorites?client_id=${Api.client_id}`;
+    return `${Api.api_url}/users/${userId}/favorites?linked_partitioning=1&limit=120&client_id=${Api.client_id}`;
 }
 
 export function constructUserSongsUrl(userId) {

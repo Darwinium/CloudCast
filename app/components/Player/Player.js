@@ -31,7 +31,12 @@ class Player extends React.Component {
   
   render() {
     return (
-      <View />
+      
+
+      <Image 
+        style={PlayerStyles.bg}
+        source={{uri: 'https://w1.sndcdn.com/SQPgL9hEpiSy_m.png'}}
+      />
     );
     // return (
     //   <Image 

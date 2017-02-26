@@ -17,23 +17,54 @@ class GridView extends React.Component {
     super(props);
     
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.data = Array.apply(null, {length: 200}).map(Number.call, Number);
     this.state = {
-        dataSource: this.ds.cloneWithRows(this.data),
+        dataSource: null,
+        images: null,
         isLoading: true,
+        nextURL: null
     }
   }
 
   componentDidMount() {
-    this.getchFavorites('lestam');
+    this.getchFavorites(constructUserFavoritesUrl('lestam'))
   }
   
 
-  getchFavorites(userId) {
-    fetch(constructUserFavoritesUrl(userId))
+  getchFavorites(request) {
+    console.log(request);
+
+    let images = this.state.images;
+
+    fetch(request)
       .then(response => response.json())
-      .then(json => this.setState({dataSource: this.ds.cloneWithRows(json), isLoading: false}) )
+      .then(json => {
+        if (this.state.images != null) {
+          for(let i=0; i < json.collection.length; i++) {
+            images.push(json.collection[i]);
+          }
+          console.log('Next Page');
+          this.setState({
+            dataSource: this.ds.cloneWithRows(images), 
+            images: images,
+          });
+        } else {
+          this.setState({
+            dataSource: this.ds.cloneWithRows(json.collection), 
+            images: json.collection,
+          });
+        }
+        this.setState({
+          isLoading: false, 
+          nextURL: json.next_href
+        });
+      })
       .catch(error => console.log(error))
+  }
+
+  renderRow(rowData, sectionID, rowID) {
+    return (
+      <Item track={rowData} />
+    );
   }
   
   render() {
@@ -50,10 +81,12 @@ class GridView extends React.Component {
           <ListView
             contentContainerStyle={GridViewStyles.grid_list}
             dataSource={this.state.dataSource}
-            initialListSize={21}
+            initialListSize={36}
             pageSize={2} // should be a multiple of the no. of visible cells per row
             scrollRenderAheadDistance={500}
-            renderRow={(rowData) => <Item track={rowData} /> }
+            onEndReachedThreshold={500}
+            onEndReached={() => { this.getchFavorites(this.state.nextURL) }}
+            renderRow={this.renderRow.bind(this)}
           />
         </View>
       );
