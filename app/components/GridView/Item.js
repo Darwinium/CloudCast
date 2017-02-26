@@ -6,7 +6,9 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import { ReactNativeAudioStreaming } from 'react-native-audio-streaming';
 
+import Api from '../../Api';
 import GridViewStyles from './GridViewStyles';
 
 class Item extends React.Component {
@@ -15,16 +17,29 @@ class Item extends React.Component {
     
     this.state = {
       track: this.props.track,
+      isPlaying: false,
     }
   }
 
   onPressImage(track){
-    console.log(track.title + '\n' + track.stream_url);
+    let stream_url = track.stream_url + `?client_id=${Api.client_id}`;
+    console.log(track.title + '\n' + stream_url);
+
+    if(!this.state.isPlaying) {
+      fetch(stream_url)
+      .then(response => {
+        console.log(response.url);
+        ReactNativeAudioStreaming.play(response.url, {showIniOSMediaCenter: true, showInAndroidNotifications: true});
+        this.setState({isPlaying: true});
+      })
+      .catch(error => console.log(error))
+    } else {
+      ReactNativeAudioStreaming.pause();
+      this.setState({isPlaying: false});
+    }
   }
   
   render() {
-    //console.log(this.state.track);
-
     let image_url;
     // let image = 'https://placehold.it/100x100/000000/ffffff?text=' + this.state.track;
 
